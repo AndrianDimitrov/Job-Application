@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "Frontend Developer",
+      "company": "Tech Solutions",
+      "imageSrc": "https://via.placeholder.com/150",
+      "description": "We are looking for a talented frontend developer."
+    },
+    {
+      "id": 2,
+      "name": "Backend Developer",
+      "company": "Innovative Systems",
+      "imageSrc": "https://via.placeholder.com/150",
+      "description": "Join our team to work on scalable backend systems."
+    },
+    {
+      "id": 3,
+      "name": "UI/UX Designer",
+      "company": "Design Studio",
+      "imageSrc": "https://via.placeholder.com/150",
+      "description": "Create beautiful and user-friendly designs."
+    }
+  ]
+  
