@@ -1,49 +1,100 @@
 <template>
   <div class="card">
-    <img :src="job.imageSrc" alt="Job Image" />
-    <h3>{{ job.name }}</h3>
-    <p>{{ job.description }}</p>
+    <div class="card-border-top"></div>
+    <div class="img">
+      <img :src="job?.imageSrc" alt="Job Image" />
+    </div>
+    <span>{{ job?.name }}</span>
+    <p class="job">{{ job?.description }}</p>
     <button @click="deleteJob">Delete</button>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+// Declare 'job' as a required prop with type validation
+const props = defineProps({
+  job: {
+    type: Object,
+    required: true,
+  },
+});
 
-defineProps(['job']);
-defineEmits(['delete-job']);
+const emit = defineEmits(['delete-job']);
 
+// Function to emit the delete-job event
 const deleteJob = () => {
-  emit('delete-job', job.id); // Emit delete-job event with the job ID
+  if (props.job?.id) {
+    console.log(`Emitting delete-job for job ID: ${props.job.id}`);
+    emit('delete-job', props.job.id);
+  } else {
+    console.error('Invalid job or missing ID:', props.job);
+  }
 };
 </script>
 
-<style>
+<style scoped>
 .card {
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 5px;
+  width: 190px;
+  height: 254px;
+  background: #3405a3;
+  border-radius: 15px;
+  box-shadow: 1px 5px 60px 0px #100a886b;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
   margin-bottom: 16px;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 15px;
+.card .card-border-top {
+  width: 60%;
+  height: 3%;
+  background: #6b64f3;
+  margin: auto;
+  border-radius: 0px 0px 15px 15px;
 }
 
-button {
-  background-color: #f44336;
+.card .img {
+  width: 70px;
+  height: 80px;
+  background: #6b64f3;
+  border-radius: 15px;
+  margin: 25px auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .img img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px;
+}
+
+.card span {
+  font-weight: 600;
   color: white;
+  display: block;
+  font-size: 16px;
+}
+
+.card .job {
+  font-weight: 400;
+  color: white;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.card button {
+  padding: 8px 25px;
+  margin-top: 20px;
+  border-radius: 8px;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  background: #6b64f3;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #d32f2f;
+.card button:hover {
+  background: #534bf3;
 }
 </style>
