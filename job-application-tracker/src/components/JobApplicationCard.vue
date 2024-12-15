@@ -6,22 +6,29 @@
     </div>
     <span>{{ job?.name }}</span>
     <p class="job">{{ job?.description }}</p>
-    <button @click="deleteJob">Delete</button>
+    <div class="actions">
+      <button @click="deleteJob">Delete</button>
+      <button @click="toggleFavorite">
+        {{ isFavorite ? 'Unfavorite' : 'Favorite' }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
-// Declare 'job' as a required prop with type validation
 const props = defineProps({
   job: {
     type: Object,
     required: true,
   },
+  isFavorite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const emit = defineEmits(['delete-job']);
+const emit = defineEmits(['delete-job', 'toggle-favorite']);
 
-// Function to emit the delete-job event
 const deleteJob = () => {
   if (props.job?.id) {
     console.log(`Emitting delete-job for job ID: ${props.job.id}`);
@@ -29,6 +36,10 @@ const deleteJob = () => {
   } else {
     console.error('Invalid job or missing ID:', props.job);
   }
+};
+
+const toggleFavorite = () => {
+  emit('toggle-favorite', props.job.id);
 };
 </script>
 
