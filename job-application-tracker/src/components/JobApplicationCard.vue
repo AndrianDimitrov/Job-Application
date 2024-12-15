@@ -2,22 +2,33 @@
   <div class="card">
     <div class="card-border-top"></div>
     <div class="img">
-      <img :src="job.imageSrc" alt="Job Image" />
+      <img :src="job?.imageSrc" alt="Job Image" />
     </div>
-    <span>{{ job.name }}</span>
-    <p class="job">{{ job.description }}</p>
+    <span>{{ job?.name }}</span>
+    <p class="job">{{ job?.description }}</p>
     <button @click="deleteJob">Delete</button>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+// Declare 'job' as a required prop with type validation
+const props = defineProps({
+  job: {
+    type: Object,
+    required: true,
+  },
+});
 
-defineProps(['job']);
-defineEmits(['delete-job']);
+const emit = defineEmits(['delete-job']);
 
+// Function to emit the delete-job event
 const deleteJob = () => {
-  emit('delete-job', job.id); // Emit delete-job event with the job ID
+  if (props.job?.id) {
+    console.log(`Emitting delete-job for job ID: ${props.job.id}`);
+    emit('delete-job', props.job.id);
+  } else {
+    console.error('Invalid job or missing ID:', props.job);
+  }
 };
 </script>
 
